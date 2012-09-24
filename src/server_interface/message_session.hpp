@@ -24,7 +24,10 @@ class message_session
 	: public boost::enable_shared_from_this<message_session>
 {
 public:
-	message_session(boost::asio::io_service& io_service, ZMQRecvLoop& zmq_recv_loop, ZmqConnectionPool& zmq_connection_pool)
+	message_session(
+		boost::asio::io_service& io_service,
+		ZMQRecvLoop& zmq_recv_loop,
+		ZmqConnectionPool& zmq_connection_pool)
 		: socket_(io_service),
 		io_service_(io_service),
 		zmq_recv_loop_(zmq_recv_loop),
