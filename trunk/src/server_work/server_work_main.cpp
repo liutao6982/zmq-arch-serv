@@ -11,7 +11,7 @@
 #include "refect_factory.hpp"
 #include "ExcImpl.hpp"
 
-#include "QuitCtrl.hpp"
+#include <base/QuitCtrl.hpp>
 
 #define GLOG_NO_ABBREVIATED_SEVERITIES
 #include <glog/logging.h>
@@ -113,11 +113,11 @@ int main(int argc, char* argv[])
 	zmq::socket_t responder(context, ZMQ_REP);
 	responder.connect(connect_string);
 
-	QuitCtrl quit_ctrl;
+	CCTool::QuitCtrl quit_ctrl;
 
 	std::string ret_info;
 
-	while(quit_ctrl.getState() != QuitCtrl::quit)
+	while(quit_ctrl.getState() != CCTool::QuitCtrl::quit)
 	{
 		//  Wait for next request from client
 		zmq::message_t request;//  Wait for next request from client        

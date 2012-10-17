@@ -8,32 +8,32 @@
 
 DEF_IMPL(test1)
 {
-	printf("%s\n", _input.c_str());
+	//printf("%s\n", _input.c_str());
 	_output = "hello world1";
 	return 1;
 }
 
 DEF_IMPL(test2)
 {
-	printf("%s\n", _input.c_str());
+	//printf("%s\n", _input.c_str());
 	_output = "hello world2";
 	return 1;
 }
 DEF_IMPL(test3)
 {
-	printf("%s\n", _input.c_str());
+	//printf("%s\n", _input.c_str());
 	_output = "hello world3";
 	return 1;
 }
 DEF_IMPL(test4)
 {
-	printf("%s\n", _input.c_str());
+	//printf("%s\n", _input.c_str());
 	_output = "hello world4";
 	return 1;
 }
 DEF_IMPL(test5)
 {
-	printf("%s\n", _input.c_str());
+	//printf("%s\n", _input.c_str());
 	_output = "hello world5";
 	return 1;
 }
