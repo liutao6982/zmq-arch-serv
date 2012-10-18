@@ -20,7 +20,7 @@ class ExcImpl
 	typedef boost::function<ExcImpl* (std::string&)> CreateImplFunc;
 	typedef boost::function<int (void)> ImplFunc;
 public:
-	//@input 整个输入json字符串
+	//@input 流程码
 	ExcImpl(std::string& type);
 
 	//业务执行接口 处理业务

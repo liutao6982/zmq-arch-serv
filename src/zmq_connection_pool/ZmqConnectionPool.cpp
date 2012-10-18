@@ -23,10 +23,10 @@ ZmqConnectionPool::ZmqConnectionPool(zmq::context_t& context, size_t size, char*
 
 bool ZmqConnectionPool::newConection(ZmqConnectionPtr& zmq_connection_ptr)
 {
-	if (!zmq_connection_queue.empty())
+	if (!zmq_connection_queue.isEmpty())
 	{
-		zmq_connection_ptr = zmq_connection_queue.front();
-		zmq_connection_queue.pop();
+		//zmq_connection_ptr = zmq_connection_queue.front();
+		zmq_connection_ptr = zmq_connection_queue.pop();
 		return true;
 	}
 	return false;

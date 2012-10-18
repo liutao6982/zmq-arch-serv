@@ -12,7 +12,7 @@
 #include "../ImplDefine.h"
 
 
-//此接口用于处理违背定义的类型码请求 提示用户出错
+//此接口用于处理未定义的类型码请求 提示用户出错
 DEF_CLASS(NullExcImpl)
 
 #endif
