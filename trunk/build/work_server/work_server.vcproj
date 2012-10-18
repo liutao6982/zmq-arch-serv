@@ -255,10 +255,6 @@
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\server_work\QuitCtrl.hpp"
-			>
-		</File>
-		<File
 			RelativePath="..\..\src\server_work\refect_factory.cpp"
 			>
 		</File>

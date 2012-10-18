@@ -12,6 +12,7 @@
 #include "ExcImpl.hpp"
 
 #include <base/QuitCtrl.hpp>
+#include <base/zmq_tool.hpp>
 
 #define GLOG_NO_ABBREVIATED_SEVERITIES
 #include <glog/logging.h>
@@ -31,42 +32,6 @@ void do_error_list_str(int error_no,std::string& output)
 		break;
 	default:
 		output = "unkown error!";
-	}
-}
-
-std::string zmq_message_construct_string(zmq::message_t& message)
-{
-	size_t len = message.size();
-	char* str = new char[len + 1];
-	memcpy(str, message.data(), len);
-	str[len] = 0;
-
-	std::string ret(str);
-	delete[] str;
-	return ret;
-}
-
-char* zmq_new_string(const std::string& str, size_t& len)
-{
-	len = str.length();
-	char *_string_copy = new char[len + 1];
-	memcpy(_string_copy, str.c_str(), len);
-	_string_copy[len] = 0;
-	len++;
-	return _string_copy;
-}
-
-void zmq_free(void *data, void *hint)
-{
-	delete[] (char *)data;
-}
-
-void QuitDlay(int time)
-{
-	for (int i = time ;i > 0 ; i--)
-	{
-		printf("Normal Quit! %d...\r",i);
-		Sleep(1000);
 	}
 }
 
@@ -123,7 +88,7 @@ int main(int argc, char* argv[])
 		zmq::message_t request;//  Wait for next request from client        
 		responder.recv (&request);
 
-		std::string input = zmq_message_construct_string(request);
+		std::string input = CCTool::zmq_message_construct_string(request);
 		std::string output;
 
 		std::string type = gettype(input);
@@ -145,13 +110,13 @@ int main(int argc, char* argv[])
 		}
 
 		size_t len;
-		char *_string_copy = zmq_new_string(output, len);
+		char *_string_copy = CCTool::zmq_new_string(output, len);
 		//  Send reply back to client
-		request.rebuild(_string_copy, len, zmq_free);
+		request.rebuild(_string_copy, len, CCTool::zmq_free);
 		responder.send(request);
 	}
 	responder.close();
-	QuitDlay(5);
+	CCTool::QuitDlay(3);
 	
 	return 0;
 }

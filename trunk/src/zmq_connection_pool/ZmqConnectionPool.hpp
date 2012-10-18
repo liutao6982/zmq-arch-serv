@@ -10,14 +10,14 @@
 
 #include <zmq.hpp>
 #include <boost/shared_ptr.hpp>
-#include <queue>
+#include <base/BlockingQueue.hpp>
 
 typedef boost::shared_ptr<zmq::socket_t> ZmqConnectionPtr;
 
 class ZmqConnectionPool
 {
 public:
-	enum{CONNECTIONS_NUM = 128};
+	enum{CONNECTIONS_NUM = 1};
 
 	ZmqConnectionPool(zmq::context_t& context, size_t size, char* server);
 
@@ -34,7 +34,7 @@ protected:
 private:
 
 	zmq::context_t& _context;
-	std::queue<ZmqConnectionPtr> zmq_connection_queue;
+	CCTool::BlockingQueue<ZmqConnectionPtr> zmq_connection_queue;
 };
 
 #endif
