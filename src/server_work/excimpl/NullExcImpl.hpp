@@ -9,7 +9,7 @@
 
 #include "../ExcImpl.hpp"
 #include "../refect_factory.hpp"
-#include "../ImplDefine.h"
+#include "../ImplDefine.inl"
 
 
 //此接口用于处理未定义的类型码请求 提示用户出错

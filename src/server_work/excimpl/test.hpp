@@ -9,7 +9,7 @@
 
 #include "../ExcImpl.hpp"
 #include "../refect_factory.hpp"
-#include "../ImplDefine.h"
+#include "../ImplDefine.inl"
 
 DEF_CLASS(test1)
 DEF_CLASS(test2)
