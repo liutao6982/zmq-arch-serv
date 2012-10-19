@@ -55,12 +55,12 @@ int main(int argc, char* argv[])
 {
 	//解析参数
 	char connect_string[256];
-	if (argc != 2)
+	if (argc != 3)
 	{
 		printf(
-			"Usage: server_work router-domain/ip \n"
-			"eg:    server_work viewin-cc\n"
-			"		server_work 192.168.16.234\n");
+			"Usage: server_work router-domain/ip node\n"
+			"eg:    server_work viewin-cc 1\n"
+			"		server_work 192.168.16.234 1\n");
 		getchar();
 		return 1;
 	}
@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
 	}
 
 	google::InitGoogleLogging("1");
-	google::SetLogDestination(google::GLOG_INFO, argv[0]);
+	google::SetLogDestination(google::GLOG_INFO, argv[2]);
 
 	//业务主循环
 	zmq::context_t context(1);
@@ -91,6 +91,8 @@ int main(int argc, char* argv[])
 		std::string input = CCTool::zmq_message_construct_string(request);
 		std::string output;
 
+		LOG(INFO) << input;
+
 		std::string type = gettype(input);
 		
 		ExcImplPtr exc_impl_ptr =
@@ -100,13 +102,20 @@ int main(int argc, char* argv[])
 		if ((ret = excute(exc_impl_ptr, input)) > 0)
 		{
 			output = exc_impl_ptr->getOutput();
-			//std::cout << output << std::endl;
+#ifdef _DEBUG
+			std::cout << output << std::endl;
+#endif
+			
+			LOG(INFO) << output;
 		}
 		else
 		{
 			//error list
 			do_error_list_str(ret, ret_info);
+#ifdef _DEBUG
 			std::cout << ret_info << std::endl;
+#endif
+			LOG(ERROR) << ret_info;
 		}
 
 		size_t len;
