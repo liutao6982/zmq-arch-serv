@@ -7,10 +7,11 @@
 
 #ifndef __ZMQ__CONNECTION_POOL_HPP__
 #define __ZMQ__CONNECTION_POOL_HPP__
-
+#include <iostream>
 #include <zmq.hpp>
 #include <boost/shared_ptr.hpp>
 #include <base/BlockingQueue.hpp>
+
 
 typedef boost::shared_ptr<zmq::socket_t> ZmqConnectionPtr;
 
@@ -25,14 +26,19 @@ public:
 
 	void releaseConection(ZmqConnectionPtr zmq_connection_ptr);
 
+	ZmqConnectionPtr CreateConection();
+
 	size_t size() const
 	{
 		return zmq_connection_queue.size();
 	}
 
+	std::string getConnString() const;
+
 protected:
 private:
 
+	std::string conn_str;
 	zmq::context_t& _context;
 	CCTool::BlockingQueue<ZmqConnectionPtr> zmq_connection_queue;
 };

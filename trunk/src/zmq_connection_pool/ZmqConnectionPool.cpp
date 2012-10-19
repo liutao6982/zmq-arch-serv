@@ -13,6 +13,8 @@ ZmqConnectionPool::ZmqConnectionPool(zmq::context_t& context, size_t size, char*
 	char connect_string[256];
 	sprintf_s(connect_string, "tcp://%s:5559", server);
 
+	conn_str = connect_string;
+
 	for (size_t i = 0; i < size ; i++)
 	{
 		ZmqConnectionPtr zmq_connection_ptr(new zmq::socket_t(context, ZMQ_REQ));
@@ -32,7 +34,20 @@ bool ZmqConnectionPool::newConection(ZmqConnectionPtr& zmq_connection_ptr)
 	return false;
 }
 
+ZmqConnectionPtr ZmqConnectionPool::CreateConection()
+{
+	ZmqConnectionPtr zmq_connection_ptr(new zmq::socket_t(_context, ZMQ_REQ));
+	zmq_connection_ptr->connect(conn_str.c_str());
+	return zmq_connection_ptr;
+}
+
 void ZmqConnectionPool::releaseConection(ZmqConnectionPtr zmq_connection_ptr)
 {
 	zmq_connection_queue.push(zmq_connection_ptr);
+}
+
+
+std::string ZmqConnectionPool::getConnString() const
+{
+	return conn_str;
 }

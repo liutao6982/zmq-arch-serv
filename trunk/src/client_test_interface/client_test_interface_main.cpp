@@ -13,6 +13,8 @@
 
 #include "../zmq_connection_pool/ZmqConnectionPool.hpp"
 
+#include <base/zmq_tool.hpp>
+
 
 #define GLOG_NO_ABBREVIATED_SEVERITIES
 #include <glog/logging.h>
@@ -90,9 +92,35 @@ int main (int argc, char* argv[])
 		zmq::message_t message((void*)test_str.c_str(), test_str.length() + 1, NULL);
 		zmq_connection_ptr->send(message);
 
-		message.rebuild();      
-		zmq_connection_ptr->recv (&message);
+		message.rebuild();
+		
+		//int i = zmq_connection_ptr->recv (&message, ZMQ_NOBLOCK);
+		//int i = zmq_connection_ptr->recv (&message);
+	
+		zmq::pollitem_t item =
+			{ *zmq_connection_ptr.get(), 0, ZMQ_POLLIN, 0 };
 
+		int rc,i = 0;
+
+		while( (rc = zmq::poll (&item, 1, 5000)) != 1)
+		{
+			if(i++ > 10)
+				break;
+		}
+
+		//std::cout << i << std::endl;
+
+		if (rc == 1 &&item.revents & ZMQ_POLLIN)
+		{
+			zmq_connection_ptr->recv(&message);
+		}
+		else
+		{
+			std::cout << "reconnected..." << std::endl;
+			zmq_connection_ptr->close();
+			zmq_connection_ptr = zmq_connection_pool.CreateConection();
+		}
+		
 		if (request%1000 == 0)
 		{
 			std::cout << request << std::endl;
