@@ -11,7 +11,7 @@
 			<DebugSettings
 				Command="$(TargetPath)"
 				WorkingDirectory="$(SolutionDir)\bin"
-				CommandArguments=" localhost 1"
+				CommandArguments=" viewin-tcj 1"
 				Attach="false"
 				DebuggerType="3"
 				Remote="1"

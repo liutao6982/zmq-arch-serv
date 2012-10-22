@@ -8,6 +8,8 @@
 
 DEF_IMPL(NullExcImpl)
 {
+
+	//grep  日志中查关键字NullExcImpl可查看输入
 	printf("%s\n", _input.c_str());
 	_output = "NullExcImpl";
 	return 1;
