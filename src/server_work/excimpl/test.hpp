@@ -11,11 +11,11 @@
 #include "../refect_factory.hpp"
 #include "../ImplDefine.inl"
 
-DEF_CLASS(test1)
-DEF_CLASS(test2)
-DEF_CLASS(test3)
-DEF_CLASS(test4)
-DEF_CLASS(test5)
+DEF_CLASS(test1);//;不是必须的
+DEF_CLASS(test2);
+DEF_CLASS(test3);
+DEF_CLASS(test4);
+DEF_CLASS(test5);
 
 
 #endif

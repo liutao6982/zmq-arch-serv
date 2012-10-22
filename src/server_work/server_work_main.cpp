@@ -10,12 +10,12 @@
 
 #include "refect_factory.hpp"
 #include "ExcImpl.hpp"
+#include "excimpl/Init.hpp"
 
 #include <base/QuitCtrl.hpp>
 #include <base/zmq_tool.hpp>
 
-#define GLOG_NO_ABBREVIATED_SEVERITIES
-#include <glog/logging.h>
+
 
 int excute(ExcImplPtr exc_impl_ptr, std::string& input)//deal with null point error 
 {
@@ -69,12 +69,11 @@ int main(int argc, char* argv[])
 		sprintf_s(connect_string, "tcp://%s:5560", argv[1]);
 	}
 
-	google::InitGoogleLogging("1");
-	google::SetLogDestination(google::GLOG_INFO, argv[2]);
+	sys_init();
+	init();
 
 	//业务主循环
 	zmq::context_t context(1);
-
 	zmq::socket_t responder(context, ZMQ_REP);
 	responder.connect(connect_string);
 

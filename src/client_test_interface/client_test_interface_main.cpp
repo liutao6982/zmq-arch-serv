@@ -44,23 +44,30 @@ int main (int argc, char* argv[])
 	for( int request = 0 ; ; request++)
 	{
 		zmq_connection_pool.newConection(zmq_connection_ptr);
-		std::string test_str("{\"jid\":\"905714444@hzdomain/HZUMD1\",\"type\":\"test1\",\"state\":\"\",\"errorcode\":\"\",\"sessionid\":\"whosyourdaddy\",\"data\":{\"lng\":119307396,\"lat\":29420824,\"gridx\":27243,\"gridy\":13579}}");
+		std::string test_str(
+			"{\"jid\":\"905714444@hzdomain/HZUMD1\","
+			"\"type\":\"test1\","
+			"\"state\":\"\","
+			"\"errorcode\":\"\","
+			"\"sessionid\":\"whosyourdaddy\","
+			"\"data\":{"
+				"\"lng\":119307396,"
+				"\"lat\":29420824,"
+				"\"gridx\":27243,"
+				"\"gridy\":13579}}");
 		//std::string test_str("aaa");
 		test_str[47] = request % 5 + 0x31;
 		zmq::message_t message((void*)test_str.c_str(), test_str.length() + 1, NULL);
 		zmq_connection_ptr->send(message);
 
 		message.rebuild();
-		
-		//int i = zmq_connection_ptr->recv (&message, ZMQ_NOBLOCK);
-		//int i = zmq_connection_ptr->recv (&message);
 	
 		zmq::pollitem_t item =
 			{ *zmq_connection_ptr, 0, ZMQ_POLLIN, 0 };
 
 		int rc,i = 0;
 
-		while( (rc = zmq::poll (&item, 1, 5000)) != 1)
+		while ((rc = zmq::poll (&item, 1, 5000)) != 1)
 		{
 			if(i++ > 10)
 				break;
@@ -78,7 +85,7 @@ int main (int argc, char* argv[])
 			zmq_connection_ptr->close();
 			zmq_connection_ptr = zmq_connection_pool.CreateConection();
 		}
-		
+
 		if (request%1000 == 0)
 		{
 			std::cout << request << std::endl;

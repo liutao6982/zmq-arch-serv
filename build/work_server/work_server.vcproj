@@ -226,6 +226,10 @@
 			Name="excimpl"
 			>
 			<File
+				RelativePath="..\..\src\server_work\excimpl\Init.hpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\server_work\excimpl\NullExcImpl.cpp"
 				>
 			</File>

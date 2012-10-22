@@ -27,7 +27,7 @@ public:
 	//单例接口
 	static RefectFactory& getInstance()
 	{
-		static RefectFactory _instance;//必须是静态的 反射类也是静态注册的
+		static RefectFactory _instance;//静态的单例 因为反射类也是静态注册的
 		return _instance;
 	}
 
