@@ -12,6 +12,7 @@ ZMQRecvLoop::ZMQRecvLoop(boost::asio::io_service& io_service)
 
 }
 
+//此函数需要优化 或使用让出cpu策略
 void ZMQRecvLoop::workloop()
 {
 	while (1)
