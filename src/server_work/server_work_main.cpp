@@ -103,9 +103,10 @@ int main(int argc, char* argv[])
 			output = exc_impl_ptr->getOutput();
 #ifdef _DEBUG
 			std::cout << output << std::endl;
+			LOG(INFO) << output;
 #endif
 			
-			LOG(INFO) << output;
+			
 		}
 		else
 		{
@@ -113,8 +114,9 @@ int main(int argc, char* argv[])
 			do_error_list_str(ret, ret_info);
 #ifdef _DEBUG
 			std::cout << ret_info << std::endl;
-#endif
 			LOG(ERROR) << ret_info;
+#endif
+			
 		}
 
 		size_t len;
