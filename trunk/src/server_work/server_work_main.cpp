@@ -89,9 +89,9 @@ int main(int argc, char* argv[])
 
 		std::string input = CCTool::zmq_message_construct_string(request);
 		std::string output;
-
+#ifdef _DEBUG
 		LOG(INFO) << input;
-
+#endif
 		std::string type = gettype(input);
 		
 		ExcImplPtr exc_impl_ptr =
@@ -114,6 +114,7 @@ int main(int argc, char* argv[])
 			do_error_list_str(ret, ret_info);
 #ifdef _DEBUG
 			std::cout << ret_info << std::endl;
+			LOG(ERROR) << input;
 			LOG(ERROR) << ret_info;
 #endif
 			
