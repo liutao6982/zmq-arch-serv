@@ -73,7 +73,7 @@ private:
   {
     if (!error && read_msg_.decode_header())
     {
-      // Read the variable-length body of the message from the server.
+	  // Read the variable-length body of the message from the server.
       boost::asio::async_read(socket_,
           boost::asio::buffer(read_msg_.body(), read_msg_.body_length()),
           boost::bind(&posix_chat_client::handle_read_body, this,
