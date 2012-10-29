@@ -73,8 +73,6 @@ int main (int argc, char* argv[])
 				break;
 		}
 
-		//std::cout << i << std::endl;
-
 		if (rc == 1 &&item.revents & ZMQ_POLLIN)
 		{
 			zmq_connection_ptr->recv(&message);
